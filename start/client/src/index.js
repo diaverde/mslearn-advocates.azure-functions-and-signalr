@@ -1,5 +1,6 @@
 import './style.css';
-import { BACKEND_URL } from './env';
+//import { BACKEND_URL } from './env';
+const BACKEND_URL = process.env.BACKEND_URL || 'http://localhost:7071';
 
 const app = new Vue({
     el: '#app',
