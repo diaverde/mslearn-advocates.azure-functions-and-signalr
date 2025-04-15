@@ -1,0 +1,21 @@
+services:
+  node:
+    image: "node:20-bullseye"
+    #user: "node"
+    working_dir: /home/node/plop
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./:/home/node/plop
+    ports:
+      - "7071:7071"
+    command: >
+      sh -c "apt-get update && apt-get install gpg wget  -y
+            wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | tee /usr/share/keyrings/microsoft-prod.gpg
+            wget -q https://packages.microsoft.com/config/debian/12/prod.list &&
+            mv prod.list /etc/apt/sources.list.d/microsoft-prod.list &&
+            chown root:root /usr/share/keyrings/microsoft-prod.gpg &&
+            chown root:root /etc/apt/sources.list.d/microsoft-prod.list &&
+            apt-get update && apt-get install azure-functions-core-tools-4  -y &&
+            apt-get update && apt-get install libicu-dev  -y &&
+            npm start"
